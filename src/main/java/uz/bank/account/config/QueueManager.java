@@ -1,31 +1,27 @@
 package uz.bank.account.config;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import uz.bank.account.constant.RabbitQueues;
 
-
-// TODO queue initialization on application startup
-
+@Log4j2
 @Component
+@RequiredArgsConstructor
 public class QueueManager {
 
-
-    private final RabbitAdmin  rabbitAdmin;
-    private final Queue queue;
-
-    @Autowired
-    public QueueManager(RabbitAdmin rabbitAdmin, Queue queue) {
-        this.rabbitAdmin = rabbitAdmin;
-        this.queue= queue;
-    }
+    private final RabbitAdmin rabbitAdmin;
 
     @PostConstruct
-    public void initizializeQueues(){
-    rabbitAdmin.declareQueue(queue);
-        System.out.println("Queue initizized");
+    public void initializeQueues(){
+		RabbitQueues.getQueuesSetups().stream()
+				.map(rabbitAdmin::declareQueue)
+				.forEach(queueName -> log.info("Queue {} created.", queueName));
     }
 
 }

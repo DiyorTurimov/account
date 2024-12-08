@@ -1,6 +1,5 @@
 package uz.bank.account.service.currencyServiceImpl;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.bank.account.entity.Currency;
@@ -25,6 +24,6 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public Currency findByName(String currencyName) {
-        return currencyRepository.findByCurrencyName(currencyName);
+        return currencyRepository.findByName(currencyName);
     }
 }

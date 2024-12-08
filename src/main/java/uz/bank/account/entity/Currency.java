@@ -11,12 +11,12 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "account_service" ,name = "currencies")
+@Table(schema = "account_service", name = "currency")
 public class Currency {
 
     @Id
     private Long id;
     private String currencyId;
-    private String currencyName;
+    private String name;
 
 }

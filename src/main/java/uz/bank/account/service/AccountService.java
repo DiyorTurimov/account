@@ -13,6 +13,8 @@ public interface AccountService  {
 
     AccountInfos openAccount(AccountReq accountReq);
 
+	AccountInfos getById(String accountNumber);
+
     List<AccountInfos> getAccountByClientId(String clientId);
 
     Page<AccountInfos> getAllAccounts(Pageable pageable);

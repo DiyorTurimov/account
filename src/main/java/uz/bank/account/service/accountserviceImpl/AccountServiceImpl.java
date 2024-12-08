@@ -1,8 +1,12 @@
 package uz.bank.account.service.accountserviceImpl;
 
+import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uz.bank.account.dto.AccountReq;
 import uz.bank.account.entity.AccountInfos;
@@ -29,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
         Currency currency = currencyRepository.findByCurrencyId(accountReq.getCurrencyCode());
 
         AccountInfos accountInfos = accountRepository
-                .findByClientIdAndCurrencyId(accountReq.getClientId(), accountReq.getCurrencyCode());
+                .findByClientIdAndCurrency_CurrencyId(accountReq.getClientId(), accountReq.getCurrencyCode());
         if(accountInfos != null){
             throw new DuplicateKeyException("account already exist");
         }
@@ -40,4 +44,20 @@ public class AccountServiceImpl implements AccountService {
             accountInfos.setAccountNumber(accountNumber);
         return accountRepository.save(accountMapper.toEntity(accountReq,currency));
     }
+
+	@Override
+	public AccountInfos getById(String accountNumber) {
+		return accountRepository.findByAccountNumber(accountNumber)
+				.orElseThrow(() -> new EntityNotFoundException("Account by number: " + accountNumber + " not found"));
+	}
+
+	@Override
+	public List<AccountInfos> getAccountByClientId(String clientId) {
+		return null;
+	}
+
+	@Override
+	public Page<AccountInfos> getAllAccounts(Pageable pageable) {
+		return null;
+	}
 }
