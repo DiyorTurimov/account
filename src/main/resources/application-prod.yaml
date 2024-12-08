@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  main:
+    log-startup-info: false
+
+#logging:
+#    level:
+#      root: ERROR
+#      liquibase: ERROR
+#      org.springframework: WARN
+#      org.hibernate: WARN
+#      uz.bank.account: INFO
+
+
+#    TODO logs turned off, only custom log to be presented uz.bank.account
+#    TODO Open account from rabbitListener

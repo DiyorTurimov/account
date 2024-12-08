@@ -1,0 +1,31 @@
+server:
+  port: ${PORT}
+  shutdown: graceful
+
+spring:
+  banner:
+    location: banner/banner_${PROFILE}.txt
+  profiles:
+    active: ${PROFILE}
+  application:
+    name: account_${PROFILE}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:${DB_URL}
+
+  liquibase:
+    enabled: true
+    user: postgres
+    password: 12345
+    url: jdbc:postgresql://localhost:5432/account
+    change-log: db/changelog/db.changelog-master.yaml
+
+

@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      author: Diyor
+      id: 1
+      changes:
+        - createTable:
+            schemaName: account_service
+            tableName: currency
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: currency_id
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
