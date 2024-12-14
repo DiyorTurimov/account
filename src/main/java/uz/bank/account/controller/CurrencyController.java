@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import uz.bank.account.dto.CurrencyDto;
 import uz.bank.account.entity.Currency;
 import uz.bank.account.service.CurrencyService;
 
@@ -21,12 +22,12 @@ public class CurrencyController {
     private CurrencyService currencyService;
 
     @PostMapping
-    public ResponseEntity<Currency> addCurrency(@RequestBody Currency currency) {
+    public ResponseEntity<CurrencyDto> addCurrency(@RequestBody Currency currency) {
        return ResponseEntity.ok(currencyService.save(currency));
     }
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Currency> getById(@PathVariable Integer id) {
+	public ResponseEntity<CurrencyDto> getById(@PathVariable Integer id) {
 		throw new EntityNotFoundException("Currency by id: " + id + " not found");
 	}
     // TODO курсы вал.т

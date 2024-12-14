@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import uz.bank.account.config.ResponseHandler;
+import uz.bank.account.dto.AccountInfosDto;
 import uz.bank.account.entity.AccountInfos;
 import uz.bank.account.service.AccountService;
 
@@ -24,24 +26,19 @@ public class AccountController {
     @Autowired
     private final AccountService accountService;
 
+    private final ResponseHandler responseHandler;
+
     @GetMapping("/client/{clientId}")
-    public ResponseEntity<List<AccountInfos>> byClientId(@PathVariable String clientId) {
-        List<AccountInfos> accountInfosList = accountService.getAccountByClientId(clientId);
+    public ResponseEntity<?> byClientId(@PathVariable String clientId) {
+        List<AccountInfosDto> accountInfosList = accountService.getAccountByClientId(clientId);
         if (accountInfosList.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(accountInfosList);
+       // return ResponseEntity.ok(accountInfosList);
+        return responseHandler.responseEntity(accountInfosList);
     }
 
-    @GetMapping
-    public ResponseEntity<Page<AccountInfos>> getAllAccounts(Pageable pageable) {
-        Page<AccountInfos> accountInfosList = accountService.getAllAccounts(pageable);
-        if (accountInfosList.isEmpty()) {
-            return ResponseEntity.notFound().build();
 
-        }
-        return ResponseEntity.ok(accountInfosList);
-    }
 
     // TODO get all accounts by clientId
     // TODO get pageable account list all

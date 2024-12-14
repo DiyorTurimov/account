@@ -4,9 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import uz.bank.account.entity.Currency;
 
+import java.util.Optional;
+
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, String> {
-    Currency findByCurrencyId(String currencyId);
 
-    Currency findByName(String currencyName);
+    Optional<Currency> findByCurrencyId(String currencyId);
+
+    Optional<Currency> findByName(String currencyName);
 }

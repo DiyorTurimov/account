@@ -24,6 +24,9 @@ public class AccountInfos {
     private String accountNumber;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+  /*  private String balance;
+    private String clearBalance;
+    private Boolean hasArrest;*/
 
     // balance -- с учтом все[ [олдов и овердрафтов
     // clearBalance -- су[ой остаток

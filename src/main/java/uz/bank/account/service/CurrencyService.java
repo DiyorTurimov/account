@@ -1,13 +1,14 @@
 package uz.bank.account.service;
 
 import org.springframework.stereotype.Service;
+import uz.bank.account.dto.CurrencyDto;
 import uz.bank.account.entity.Currency;
 
 @Service
 public interface CurrencyService {
-    Currency save(Currency currency);
+    CurrencyDto save(Currency currency);
 
-    Currency findByCurrencyId(String currencyId);
+    CurrencyDto findByCurrencyId(String currencyId);
 
-    Currency findByName(String name);
+    CurrencyDto findByName(String name);
 }

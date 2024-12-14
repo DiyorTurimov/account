@@ -8,9 +8,9 @@ import uz.bank.account.entity.AccountInfos;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountInfos, Long> {
 
-    AccountInfos findByClientId(String clientId);
+    Optional<AccountInfos> findByClientId(String clientId);
 
-    AccountInfos findByClientIdAndCurrency_CurrencyId(String accountId, String currencyId);
+    Optional<AccountInfos> findByClientIdAndCurrency_CurrencyId(String accountId, String currencyId);
 
 	Optional<AccountInfos> findByAccountNumber(String accountNumber);
 }
