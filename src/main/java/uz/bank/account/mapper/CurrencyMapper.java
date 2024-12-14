@@ -1,18 +1,13 @@
 package uz.bank.account.mapper;
 
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
+import org.mapstruct.MappingConstants.ComponentModel;
 import uz.bank.account.dto.CurrencyDto;
 import uz.bank.account.entity.Currency;
 
-@Component
-@Mapper(componentModel = "spring")
-public interface  CurrencyMapper {
-
-    CurrencyMapper currencyMapper = Mappers.getMapper(CurrencyMapper.class);
-
-    CurrencyDto toDto(Currency currency);
-
-
+@Mapper(componentModel = ComponentModel.SPRING, builder = @Builder)
+public interface CurrencyMapper {
+	CurrencyDto toDto(Currency currency);
+	Currency toEntity(CurrencyDto currencyDto);
 }

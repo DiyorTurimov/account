@@ -1,6 +1,9 @@
 package uz.bank.account.repository;
 
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import uz.bank.account.entity.AccountInfos;
@@ -13,4 +16,6 @@ public interface AccountRepository extends JpaRepository<AccountInfos, Long> {
     Optional<AccountInfos> findByClientIdAndCurrency_CurrencyId(String accountId, String currencyId);
 
 	Optional<AccountInfos> findByAccountNumber(String accountNumber);
+
+	Page<AccountInfos> findAll(Specification<AccountInfos> specification, Pageable pageable);
 }
