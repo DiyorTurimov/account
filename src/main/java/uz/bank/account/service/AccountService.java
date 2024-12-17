@@ -17,7 +17,9 @@ public interface AccountService  {
 
 	AccountInfosDto getById(String accountNumber);
 
-    PageableResponse<AccountInfosDto> getAccountsByClientId(PageableRequest<AccountFilter> pageableRequest);
+    PageableResponse<AccountInfosDto> getAccountsByClientID(PageableRequest<AccountFilter> pageableRequest);
+
+    PageableResponse<AccountInfosDto> getAccountsByClientID(String clientId, PageableRequest<AccountFilter> pageableRequest);
 
 //    Page<AccountInfos> getAllAccounts(Pageable pageable);
 }

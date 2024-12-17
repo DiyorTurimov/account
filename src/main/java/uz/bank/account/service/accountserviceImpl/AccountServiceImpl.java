@@ -68,7 +68,9 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new ApplicationException(ApplicationExceptionCause.ENTITY_NOT_FOUND_BY_ID.getCode()));
     }
 
-	@Override
+
+
+	/*@Override
 	public PageableResponse<AccountInfosDto> getAccountsByClientId(String clientId, PageableRequest<AccountFilter> pageableRequest) {
 		Sort sort = switch (pageableRequest.direction()) {
 			case ASC -> Sort.by(pageableRequest.sortProperty().getPropertyName()).ascending();
@@ -94,6 +96,41 @@ public class AccountServiceImpl implements AccountService {
 				.size(0)
 				.data(accountDtos)
 				.build();
+	}
+*/
+	@Override
+	public PageableResponse<AccountInfosDto> getAccountsByClientID(String clientId, PageableRequest<AccountFilter> pageableRequest){
+		Sort sort = switch (pageableRequest.direction()) {
+			case ASC -> Sort.by(pageableRequest.sortProperty().getPropertyName()).ascending();
+			case DESC -> Sort.by(pageableRequest.sortProperty().getPropertyName()).descending();
+			case NONE -> Sort.by(pageableRequest.sortProperty().getPropertyName());
+		};
+
+		PageRequest pageRequest = PageRequest.of(pageableRequest.page(), pageableRequest.size(), sort);
+
+
+		Specification<AccountInfos> spec = Specification.where(null);
+		if (clientId != null) {
+			spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("clientId"), clientId));
+
+		}
+
+		Page<AccountInfos> accountPage = accountRepository.findAll(spec, pageRequest);
+
+		List<AccountInfosDto> accountDtos = accountPage.stream()
+				.map(accountMapper::toDto)
+				.toList();
+
+		return PageableResponse.<AccountInfosDto>builder()
+				.isFirst(accountPage.isFirst())
+				.isLast(accountPage.isLast())
+				.totalPages(accountPage.getTotalPages())
+				.page(accountPage.getNumber())
+				.size(accountPage.getSize())
+				.data(accountDtos)
+				.build();
+
+
 	}
 
 	private Specification<AccountInfos> buildSpecification(AccountFilter filterProperty, String filterValue) {
